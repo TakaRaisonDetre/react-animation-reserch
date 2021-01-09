@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import {Card, Button} from 'react-native-elements'
 import Deck from './src/Deck'
+import DeckStack from './src/DeckStack'
 
 const DATA = [
   { id: 1, text: 'Card #1', uri: "https://picsum.photos/200/300?grayscale"},
@@ -33,10 +34,6 @@ class App extends React.Component  {
         />
     </Card>
      
-      
-     
-
-     
     )
   }
 
@@ -52,7 +49,7 @@ class App extends React.Component  {
   render(){
     return (
       <View style={styles.container}>
-         <Deck
+         <DeckStack
           data={DATA}
           renderCards ={this.renderCard}
           renderNoMoreCards = {this.renderNoMoreCards}
