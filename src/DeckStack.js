@@ -3,6 +3,7 @@ import {View, Text, Animated, PanResponder, Dimensions} from 'react-native'
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
+const SWIPE_OUT_DURATION = 250;
 
 class DeckStack extends Component {
 
@@ -21,6 +22,7 @@ constructor(props){
       onPanResponderRelease: (event, gesture)=>{
         if(gesture.dx > SWIPE_THRESHOLD) {
             console.log('swipe right!')
+            this.forceSwipeRight()
         } else if(gesture.dx < -SWIPE_THRESHOLD) {
             console.log('swipe left!')
       } else {
@@ -32,6 +34,14 @@ constructor(props){
 
     //this.panResponder = panResponder;
     this.state = {panResponder, position};
+}
+
+forceSwipeRight(){
+    // timing is slighlyd different from spring how things are moving, timing is slighly smoothier
+    Animated.timing(this.state.position, {
+        toValue: {x : SCREEN_WIDTH, y:0 },
+        duration: SWIPE_OUT_DURATION // millisecond
+    }).start()
 }
 
 resetPosition(){
