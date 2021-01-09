@@ -7,16 +7,21 @@ class DeckStack extends Component {
 
 constructor(props){
     super(props);
+
+    // animated valueXY, I do not pass any default x and y value on it
+    const position = new Animated.ValueXY();
+
     const panResponder = PanResponder.create({
       onStartShouldSetPanResponder :() =>true,
+      // when draggin finger on screen and hand off the gesture objec to animated system 
       onPanResponderMove: (event, gesture)=>{
-          console.log(gesture)
+         position.setValue({x:gesture.dx ,y:gesture.dx });
       },
       onPanResponderRelease: ()=>{}
     });
 
     //this.panResponder = panResponder;
-    this.state = {panResponder};
+    this.state = {panResponder, position};
 }
 
 
@@ -30,9 +35,11 @@ renderCards(){
 
 render(){
     return (
-        <View {...this.state.panResponder.panHandlers}>
+        <Animated.View
+        style={this.state.position.getLayout()}
+        {...this.state.panResponder.panHandlers}>
             {this.renderCards()}
-        </View>
+        </Animated.View>
     )
    }
 
