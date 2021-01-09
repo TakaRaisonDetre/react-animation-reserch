@@ -10,7 +10,7 @@ class DeckStack extends Component {
 //Parent component does not pass the onSwipeLeft or onSwipeRight function props so then the default prop system would be appropriate for this case
 static defaultProps ={
     onSwipeRight : ()=>{},
-    onSwipeLeft : ()=>{}
+    onSwipeLeft : ()=>{},
 }
 
 
