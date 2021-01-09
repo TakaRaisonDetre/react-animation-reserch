@@ -18,12 +18,21 @@ constructor(props){
       onPanResponderMove: (event, gesture)=>{
          position.setValue({x:gesture.dx ,y:gesture.dy });
       },
-      onPanResponderRelease: ()=>{}
+      onPanResponderRelease: ()=>{
+          this.resetPosition()
+      }
     });
 
     //this.panResponder = panResponder;
     this.state = {panResponder, position};
 }
+
+resetPosition(){
+    Animated,spring(this.state.position, {
+        toValue: {x:0, y:0}
+    }).start();
+}
+
 // rotation function and set transform property for rotation interpolation 
 // transform property access an array and specify number of transform such as rotate
 getCardStyle(){
