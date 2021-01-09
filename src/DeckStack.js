@@ -34,7 +34,7 @@ constructor(props){
     });
 
     //this.panResponder = panResponder;
-    this.state = {panResponder, position};
+    this.state = {panResponder, position, index:0};
 }
 
 forceSwipe(direction){
@@ -44,8 +44,17 @@ forceSwipe(direction){
     Animated.timing(this.state.position, {
         toValue: {x : x, y:0 },
         duration: SWIPE_OUT_DURATION // millisecond
-    }).start()
+    }).start(()=> this.onSwipeComplete(direction))
 }
+
+onSwipeComplete(direction){
+    // we have not yet pass these props to the component we want to have a function called back when user swipe
+ const {onSwipeLeft, onSwipeRight, data} = this.props
+const item = data[this.state.index];
+
+ direction === 'right'? onSwipeRight(item) :onSwipeLeft(item); 
+}
+
 
 resetPosition(){
     Animated.spring(this.state.position, {
