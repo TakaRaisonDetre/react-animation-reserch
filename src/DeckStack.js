@@ -26,8 +26,10 @@ constructor(props){
 // rotation function and set transform property for rotation interpolation 
 // transform property access an array and specify number of transform such as rotate
 getCardStyle(){
-    return {...state.position.getLayout(),
-            transform:[{rotate: '45deg'}]};
+    return {
+        ...state.position.getLayout(),
+            transform:[{rotate: '45deg'}]
+        };
 
 
 }
