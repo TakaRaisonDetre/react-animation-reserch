@@ -107,7 +107,7 @@ renderCards(){
           return (
               <Animated.View
               key={item.id}
-              style={this.getCardStyle()}
+              style={[this.getCardStyle(), styles.cardStyle]}
               {...this.state.panResponder.panHandlers}
               >
                   {
@@ -116,8 +116,14 @@ renderCards(){
               </Animated.View>
           )
       }
-        return this.props.renderCards(item)
-    })
+      
+        return (
+            <Animated.View key={item.id} style={styles.cardStyle}>
+                {this.props.renderCards(item)}
+            </Animated.View>
+            
+        )
+    }).reverse();
 }
 
 
@@ -132,5 +138,13 @@ render(){
 
 
 }
+
+const styles = {
+    cardStyle :{
+        position :'absolute',
+        width:SCREEN_WIDTH
+    }
+};
+
 
 export default DeckStack
