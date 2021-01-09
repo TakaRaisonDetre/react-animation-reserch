@@ -22,9 +22,10 @@ constructor(props){
       onPanResponderRelease: (event, gesture)=>{
         if(gesture.dx > SWIPE_THRESHOLD) {
             console.log('swipe right!')
-            this.forceSwipeRight()
+            this.forceSwipe('right')
         } else if(gesture.dx < -SWIPE_THRESHOLD) {
             console.log('swipe left!')
+            this.forceSwipe('left')
       } else {
         this.resetPosition();
       }
@@ -36,10 +37,12 @@ constructor(props){
     this.state = {panResponder, position};
 }
 
-forceSwipeRight(){
+forceSwipe(direction){
+
+    const x = direction ==='right'? SCREEN_WIDTH : -SCREEN_WIDTH
     // timing is slighlyd different from spring how things are moving, timing is slighly smoothier
     Animated.timing(this.state.position, {
-        toValue: {x : SCREEN_WIDTH, y:0 },
+        toValue: {x : x, y:0 },
         duration: SWIPE_OUT_DURATION // millisecond
     }).start()
 }
