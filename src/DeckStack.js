@@ -30,7 +30,7 @@ renderCards(){
 
 render(){
     return (
-        <View>
+        <View {...this.state.panResponder.panHandlers}>
             {this.renderCards()}
         </View>
     )
