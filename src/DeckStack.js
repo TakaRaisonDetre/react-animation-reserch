@@ -23,14 +23,22 @@ constructor(props){
     //this.panResponder = panResponder;
     this.state = {panResponder, position};
 }
+// rotation function and set transform property for rotation interpolation 
+// transform property access an array and specify number of transform such as rotate
+getCardStyle(){
+    return {...state.position.getLayout(),
+            transform:[{rotate: '45deg'}]};
 
+
+}
 
 renderCards(){
   return  this.props.data.map((item, index) =>{
       if(index ===0) {
           return (
               <Animated.View
-              style={this.state.position.getLayout()}
+              key={item.id}
+              style={this.state.getCardStyle()}
               {...this.state.panResponder.panHandlers}
               >
                   {
