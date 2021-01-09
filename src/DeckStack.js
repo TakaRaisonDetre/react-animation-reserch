@@ -15,7 +15,7 @@ constructor(props){
       onStartShouldSetPanResponder :() =>true,
       // when draggin finger on screen and hand off the gesture objec to animated system 
       onPanResponderMove: (event, gesture)=>{
-         position.setValue({x:gesture.dx ,y:gesture.dx });
+         position.setValue({x:gesture.dx ,y:gesture.dy });
       },
       onPanResponderRelease: ()=>{}
     });
@@ -26,7 +26,19 @@ constructor(props){
 
 
 renderCards(){
-  return  this.props.data.map(item =>{
+  return  this.props.data.map((item, index) =>{
+      if(index ===0) {
+          return (
+              <Animated.View
+              style={this.state.position.getLayout()}
+              {...this.state.panResponder.panHandlers}
+              >
+                  {
+                      this.props.renderCards(item)
+                  }
+              </Animated.View>
+          )
+      }
         return this.props.renderCards(item)
     })
 }
@@ -35,11 +47,9 @@ renderCards(){
 
 render(){
     return (
-        <Animated.View
-        style={this.state.position.getLayout()}
-        {...this.state.panResponder.panHandlers}>
+        <View>
             {this.renderCards()}
-        </Animated.View>
+        </View>
     )
    }
 
